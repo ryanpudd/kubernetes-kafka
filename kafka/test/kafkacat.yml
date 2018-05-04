@@ -2,7 +2,6 @@
 kind: ConfigMap
 metadata:
   name: kafkacat
-  namespace: test-kafka
 apiVersion: v1
 data:
 
@@ -66,7 +65,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: topic-test-kafkacat
-  namespace: test-kafka
 spec:
   template:
     spec:
@@ -91,7 +89,6 @@ apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
   name: kafkacat
-  namespace: test-kafka
 spec:
   replicas: 1
   selector:
