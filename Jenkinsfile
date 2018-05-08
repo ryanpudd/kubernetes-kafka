@@ -7,6 +7,10 @@ node {
     // Roll out to production
     case "master":
         // Change deployed image in staging to the one we just built
+		
+		sh("kubectl --namespace=staging apply -f configure/aws-storageclass-broker-gp2.yml")
+		sh("kubectl --namespace=staging apply -f configure/aws-storageclass-zookeeper-gp2.yml")
+		sh("kubectl --namespace=staging apply -f rbac-namespace-default/")
         sh("kubectl --namespace=staging apply -f zookeeper/")
         sh("kubectl --namespace=staging apply -f kafka/")
         break
@@ -15,6 +19,9 @@ node {
     default:
         // Create namespace if it doesn't exist
         sh("kubectl get ns ${env.BRANCH_NAME} || kubectl create ns ${env.BRANCH_NAME}")
+		sh("kubectl --namespace=staging apply -f configure/aws-storageclass-broker-gp2.yml")
+		sh("kubectl --namespace=staging apply -f configure/aws-storageclass-zookeeper-gp2.yml")
+		sh("kubectl --namespace=staging apply -f rbac-namespace-default/")
         sh("kubectl --namespace=${env.BRANCH_NAME} apply -f zookeeper/")
         sh("kubectl --namespace=${env.BRANCH_NAME} apply -f kafka/")
   }
