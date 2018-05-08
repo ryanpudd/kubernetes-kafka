@@ -25,7 +25,6 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: kafka-pod-labler
-  namespace: kafka
   labels:
     origin: github.com_Yolean_kubernetes-kafka
 roleRef:
